@@ -72,9 +72,13 @@ class _NumericType:
     exclusive_maximum = False
     multiple_of = None  # type: typing.Union[float, int]
     nullable = False
+    blank = False
 
     def __new__(cls, *args, **kwargs):
         if cls.nullable and args and args[0] is None:
+            return None
+
+        if cls.blank and args and args[0] == "":
             return None
 
         try:
